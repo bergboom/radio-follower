@@ -1,9 +1,11 @@
-var userController = require('./controllers/userController');
+const responseController = require('./controllers/responseController');
 
 module.exports = function (app) {
-    app.route('/v1/user/:id').get(userController.getUser);
+    app.route('/v1/responseToConversation/:id').get(
+        responseController.getResponseToQuestion
+    );
 
-    app.route('/v1/user/:id/details').get(userController.getUserDetails);
-
-    app.route('/v1/user').post(userController.createUser);
+    app.route('/v1/saveConversation/:id').post(
+        responseController.saveConversation
+    );
 };

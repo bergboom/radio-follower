@@ -6,6 +6,10 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
+app.get('/', (req, res) => {
+    console.log('/ was called');
+    res.status(200).send('Hello Radio!');
+});
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*'); // Change this if you want to only allow requests from a specific domain
     res.header(
@@ -20,4 +24,4 @@ routes(app);
 console.log(`Backend Started on port: ${port}`);
 app.listen(port);
 
-exports.mobsterRpgApi = app;
+exports.radioFollowersApi = app;

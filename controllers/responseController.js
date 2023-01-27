@@ -9,10 +9,10 @@ const namespaceId = 'radio-follower';
 
 exports.getResponseToQuestion = function (req, res) {
     console.log('Get Response to Question');
-    if (typeof req?.body === 'undefined') {
+    if (typeof req?.params?.id === 'undefined') {
         const err = {
             code: 400,
-            message: 'Bad Request. Missing body',
+            message: 'Bad Request. Missing id',
         };
         res.status(400).send(err);
         return;
@@ -20,7 +20,7 @@ exports.getResponseToQuestion = function (req, res) {
 
     //Retrieve an answer option from an ML entity or such...
 
-    var responseId = 1;
+    var responseId = req.params.id;
 
     const key = datastore.key({
         namespace: namespaceId,
@@ -31,7 +31,7 @@ exports.getResponseToQuestion = function (req, res) {
         if (!err && !entity) {
             err = {
                 code: 404,
-                message: 'Not found',
+                message: 'Response Not found',
             };
         }
         if (err) {
