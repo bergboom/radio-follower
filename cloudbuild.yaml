@@ -1,0 +1,25 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+      [
+          'functions',
+          'deploy',
+          'radioFollowersApi',
+          '--entry-point',
+          'radioFollowersApi',
+          '--runtime',
+          'nodejs16',
+          '--region',
+          'europe-west1',
+          '--security-level',
+          'secure-always',
+          '--memory',
+          '1024MB',
+          '--max-instances',
+          '1',
+          '--trigger-http',
+          '--allow-unauthenticated',
+      ]
+
+
+timeout: "600s"
