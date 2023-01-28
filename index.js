@@ -5,7 +5,7 @@ var port = 3006;
 var app = express();
 var cors = require('cors');
 
-const allowedOrigins = ['*', 'http://localhost:4200'];
+/*const allowedOrigins = ['*', 'http://localhost:4200'];
 app.use(
     cors({
         origin: function (origin, callback) {
@@ -20,10 +20,42 @@ app.use(
     })
 );
 
-app.options('*', cors()); // include before other routes
+app.options('*', cors()); // include before other routes */
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
+
+app.use(function (req, res, next) {
+    var oneof = false;
+    if (req.headers.origin) {
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+        oneof = true;
+    }
+    if (req.headers['access-control-request-method']) {
+        res.header(
+            'Access-Control-Allow-Methods',
+            req.headers['access-control-request-method']
+        );
+        oneof = true;
+    }
+    if (req.headers['access-control-request-headers']) {
+        res.header(
+            'Access-Control-Allow-Headers',
+            req.headers['access-control-request-headers']
+        );
+        oneof = true;
+    }
+    if (oneof) {
+        res.header('Access-Control-Max-Age', 60 * 60 * 24 * 365);
+    }
+
+    // intercept OPTIONS method
+    if (oneof && req.method == 'OPTIONS') {
+        res.send(200);
+    } else {
+        next();
+    }
+});
 
 app.get('/', (req, res) => {
     res.status(200).send('Hello Radio!');
