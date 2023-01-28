@@ -5,7 +5,10 @@ module.exports = function (app) {
         responseController.getResponseToQuestion
     );
 
-    app.route('/v1/saveConversation/:id').post(
+    /*app.route('/v1/saveConversation/:id').post(
         responseController.saveConversation
     );
+    */
+
+    app.route('/v1/sendMessage').post(responseController.sendMessage);
 };
