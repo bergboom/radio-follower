@@ -8,4 +8,4 @@ https://medium.com/@chriswrite/cloud-function-and-datastore-tutorial-intro-to-bu
 
 Install Gcloud CLI and run the below command to connect to dialogFlow from local env.
 
-gcloud auth application-default login
+To get a token, run this in console: gcloud auth print-identity-token

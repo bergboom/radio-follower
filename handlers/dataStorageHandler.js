@@ -9,9 +9,14 @@ const namespaceId = 'radio-follower';
 exports.saveMessage = function (data) {
     return new Promise((resolve, reject) => {
         if (typeof data?.sessionId !== 'undefined') {
-            var sessionId = data?.sessionId;
-            var requestMessage = data?.requestMessage;
-            var responseMessage = data?.responseMessage;
+            let {
+                sessionId,
+                requestMessage,
+                responseMessage,
+                userId,
+                contactId,
+                platform,
+            } = data;
             if (
                 typeof requestMessage === 'undefined' ||
                 typeof responseMessage === 'undefined'
@@ -32,6 +37,9 @@ exports.saveMessage = function (data) {
             const dataToStore = {
                 sessionId: sessionId,
                 datetime: new Date().toISOString(),
+                userId: userId,
+                platform: platform,
+                contactId: contactId,
                 requestMessage: requestMessage,
                 responseMessage: responseMessage,
                 rawResponseData: data,
