@@ -3,7 +3,7 @@ var express = require('express');
 var routes = require('./routes');
 var port = 3006;
 var app = express();
-var cors = require('cors');
+//var cors = require('cors');
 
 /*const allowedOrigins = ['*', 'http://localhost:4200'];
 app.use(
@@ -26,35 +26,29 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.use(function (req, res, next) {
-    var oneof = false;
-    if (req.headers.origin) {
-        res.header('Access-Control-Allow-Origin', req.headers.origin);
-        oneof = true;
-    }
-    if (req.headers['access-control-request-method']) {
-        res.header(
-            'Access-Control-Allow-Methods',
-            req.headers['access-control-request-method']
-        );
-        oneof = true;
-    }
-    if (req.headers['access-control-request-headers']) {
-        res.header(
-            'Access-Control-Allow-Headers',
-            req.headers['access-control-request-headers']
-        );
-        oneof = true;
-    }
-    if (oneof) {
-        res.header('Access-Control-Max-Age', 60 * 60 * 24 * 365);
-    }
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
-    // intercept OPTIONS method
-    if (oneof && req.method == 'OPTIONS') {
-        res.send(200);
-    } else {
-        next();
-    }
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT');
+
+    // Request headers you wish to allow
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'X-Requested-With,content-type'
+    );
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
+
+app.options(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
 });
 
 app.get('/', (req, res) => {
