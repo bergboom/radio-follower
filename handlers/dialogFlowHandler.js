@@ -5,15 +5,15 @@ const region = 'europe-west2';
 // languageCode: Indicates the language Dialogflow agent should use to detect intents
 
 // Instantiates a session client
-/*const sessionClient = new dialogflow.SessionsClient({
+const sessionClient = new dialogflow.SessionsClient({
     apiEndpoint: 'europe-west2-dialogflow.googleapis.com',
 });
-*/
+
 //Use below lines when running on local machine
-const sessionClient = new dialogflow.SessionsClient({
+/*const sessionClient = new dialogflow.SessionsClient({
     keyFilename: '../radio-follower/.keys/radio-follower.json',
     apiEndpoint: 'europe-west2-dialogflow.googleapis.com',
-});
+});*/
 
 function detectIntent(projectId, sessionId, query, contexts, languageCode) {
     // The path to identify the agent that owns the created intent. not able to handle different location currently.

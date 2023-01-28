@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 });
 
 app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:4200'); //'*'); // Change this if you want to only allow requests from a specific domain
+    res.header('Access-Control-Allow-Origin', '*'); // Change this if you want to only allow requests from a specific domain
     res.header(
         'Access-Control-Allow-Headers',
         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
