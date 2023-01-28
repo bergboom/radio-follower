@@ -3,17 +3,17 @@ var express = require('express');
 var routes = require('./routes');
 var port = 3006;
 var app = express();
-const cors = require('cors');
-app.options('*', cors()); // include before other routes
+var cors = require('cors');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
-
-/*app.use(
+app.use(
     cors({
         origin: ['http://localhost:4200'],
     })
-);*/
+);
+app.options('*', cors()); // include before other routes
 
 app.get('/', (req, res) => {
     res.status(200).send('Hello Radio!');
