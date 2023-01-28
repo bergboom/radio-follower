@@ -3,22 +3,24 @@ var express = require('express');
 var routes = require('./routes');
 var port = 3006;
 var app = express();
+const cors = require('cors');
+app.options('*', cors()); // include before other routes
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
-const cors = require('cors');
-app.use(
+
+/*app.use(
     cors({
         origin: ['http://localhost:4200'],
     })
-);
+);*/
 
 app.get('/', (req, res) => {
     res.status(200).send('Hello Radio!');
 });
 
 app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*'); // Change this if you want to only allow requests from a specific domain
+    res.header('Access-Control-Allow-Origin', 'http://localhost:4200'); //'*'); // Change this if you want to only allow requests from a specific domain
     res.header(
         'Access-Control-Allow-Headers',
         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
